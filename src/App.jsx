@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Nav from './Components/Nav';
 import Home from './Components/Home';
 import About from './Components/About';
@@ -10,9 +10,6 @@ import Login from './Components/Login';
 import Cart from './Components/Cart';
 import Footer from './Components/Footer';
 import Singnup from './Components/Singnup';
-
-
-
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -34,23 +31,31 @@ const App = () => {
     setCart([]);
   }
 
-  return (
-    <Router>
-       <Nav cartItems={cart}/>
-        <Routes>
-        
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/products' element={<Product  />} />
-          <Route path='/:id' element={<FeatuedProduct />} />
-          <Route path='/products/:id' element={<ProductData AddToCart={AddToCart}  />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/cart' element={<Cart cartItems={cart} setCartItems ={setCart}  handleClearCart={handleClearCart} />} />
-          <Route path ='/signup' element={<Singnup/>} />
-        </Routes>
-     <Footer/>
-    </Router>
-  );
-}
+  const location = useLocation();
+  const noFooterPaths = ['/cart'];
 
-export default App;
+  return (
+    <>
+      <Nav cartItems={cart} />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/products' element={<Product />} />
+        <Route path='/:id' element={<FeatuedProduct />} />
+        <Route path='/products/:id' element={<ProductData AddToCart={AddToCart} />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/cart' element={<Cart cartItems={cart} setCartItems={setCart} handleClearCart={handleClearCart} />} />
+        <Route path='/signup' element={<Singnup />} />
+      </Routes>
+      {!noFooterPaths.includes(location.pathname) && <Footer />}
+    </>
+  );
+};
+
+const AppWrapper = () => (
+  <Router>
+    <App />
+  </Router>
+);
+
+export default AppWrapper;

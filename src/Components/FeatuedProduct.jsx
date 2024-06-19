@@ -49,12 +49,12 @@ const FeatuedProduct = () => {
             <span className='pl-4'>{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span>
           </div>
           <div className='flex my-4'>
-            <p className='font-semibold text-lg'>SKU :</p>
-            <span className='pl-4'>{product.sku}</span>
+            <p className='font-semibold text-lg'>Category:</p>
+            <span className='pl-4'>{product.category}</span>
           </div>
           <div className='flex my-4 border-b-2 pb-4'>
-            <p className='font-semibold text-lg'>Brand :</p>
-            <span className='pl-4'>{product.brand}</span>
+            <p className='font-semibold text-lg'>Description:</p>
+            <span className='pl-4'>{product.description}</span>
           </div>
         </div>
       </div>
